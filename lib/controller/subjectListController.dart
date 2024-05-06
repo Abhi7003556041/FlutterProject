@@ -1,12 +1,12 @@
+// ignore_for_file: prefer_is_empty, avoid_print
+
 import 'dart:convert';
 
 import 'package:collge_erp_app/Service/Network/basic_api_service.dart';
 import 'package:collge_erp_app/Service/Network/network_api_service.dart';
 import 'package:collge_erp_app/const/app_url.dart';
-import 'package:collge_erp_app/model/attendenceMod.dart';
-import 'package:collge_erp_app/model/attendenceModel.dart';
-import 'package:collge_erp_app/model/loginModel.dart';
-import 'package:collge_erp_app/model/loginResponseModel.dart';
+import 'package:collge_erp_app/model/subjectListMod.dart';
+import 'package:collge_erp_app/model/subjectListModel.dart';
 import 'package:collge_erp_app/model/userDetailModel.dart';
 import 'package:collge_erp_app/view/hiddenDrawer.dart';
 import 'package:get/get.dart';
@@ -15,11 +15,11 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class AttendenceController extends GetxController{
-  RxList<Result> attendencelist = <Result>[].obs;
+class SubjectListController extends GetxController{
+  RxList<Result> subjectlist = <Result>[].obs;
   RxBool isCallingApi = false.obs;
   RxString userId = "".obs;
-  @override
+@override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
@@ -27,14 +27,16 @@ class AttendenceController extends GetxController{
   }
   void getDetails () async{
     var sharepref =await  SharedPreferences.getInstance();
-    getAttendence(sharepref.getString('id')!);
+    getSubject(sharepref.getString('department')!,sharepref.getString('year')!);
 
   }
+ 
 
-  Future<AttendenceModel> getAttendenceList(String val) async{
+  Future<SubjectListModel> getSubjectList(String val,String val1) async{
     // CircularProgressIndicator()
-    final model = Attendence(
-       id:val
+    final model = SubjectListMod(
+       department: val,
+        year: val1
     );
 
     print("========Model");
@@ -43,7 +45,7 @@ class AttendenceController extends GetxController{
 
     final result = await http.post(
         Uri.parse(
-            AppUrls.attendenceUrl),
+            AppUrls.subjectListUrl),
         body: model.toJson()
     ).timeout(const Duration(seconds: 30));
 
@@ -53,35 +55,30 @@ class AttendenceController extends GetxController{
     if(result.statusCode == 200){
       Get.snackbar('GetStudentAttendence', 'Success' );
       isCallingApi.value = false;
-      print("Attendence skjlsdhkjsdgk");
+      print("Subdbfd skjlsdhkjsdgk");
       // attendencelist.ad
     }else{
       isCallingApi.value = false;
-      Get.snackbar('GetStudentAttendence', 'failed' );
+      Get.snackbar('GetStudentASubbfdb', 'failed' );
     }
-    return AttendenceModel.fromJson(json.decode(result.body));
+    return SubjectListModel.fromJson(json.decode(result.body));
 
 
 
   }
-  void getAttendence (String val) async {
+  void getSubject (String val,String vala) async {
     isCallingApi.value = true;
-    var responsee = await getAttendenceList(val);
+    var responsee = await getSubjectList(val,vala);
+   
     print("Attendence skjlsdhkjsdgk");
     print(responsee);
-    if (responsee.success!) {
+    if (responsee.result?.length!=0) {
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
-      attendencelist.addAll(responsee.result as Iterable<Result>);
+      subjectlist.addAll(responsee.result as Iterable<Result>);
       isCallingApi.value = false;
     } else {
       isCallingApi.value = false;
     }
   }
-@override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+
 }
-
-

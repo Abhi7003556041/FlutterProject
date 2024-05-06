@@ -31,11 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic details =sharepref.getString('name');
 
 
-    print(details );
+    print(isloggedin );
     Timer(const Duration(seconds:2), () {
-      if(isloggedin!= null || isloggedinAdmin!= null || isloggedinFaculty!= null){
+      if(isloggedin!= null || isloggedinAdmin!= null || isloggedinFaculty!= null || details != null){
         if(isloggedin! || isloggedinAdmin! || isloggedinFaculty!){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> 
+           hidderDrawerScreen(usertype:  isloggedin ? "Student" : isloggedinAdmin! ? "Admin" : "Faculty") ));
         }
         else{
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> homePage()));

@@ -69,7 +69,7 @@ class LoginController extends GetxController{
   void login () async{
     isCallingLoginApi.value = true;
     var responsee = await userlogin('Student');
-      if (responsee.success!) {
+      if (responsee.success == true) {
         Map<String, dynamic> decodedToken = JwtDecoder.decode(responsee.token!);
 
         // userDetails = decodedToken.entries.map( (entry) => Student(entry.key, entry.value)).toList();
@@ -84,13 +84,15 @@ class LoginController extends GetxController{
         sharepref.setString('id',responsee.id!);
         sharepref.setString('name',responsee.name!);
         sharepref.setString('avatar',responsee.avatar!);
+        sharepref.setBool('file',false);
         sharepref.setString('registrationNumber',responsee.registrationNumber!);
         sharepref.setString('department',responsee.department!);
         sharepref.setString('year',responsee.year!.toString());
         sharepref.setString('batch',responsee.batch!);
         print(responsee.avatar!);
         // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
-        Get.to( hidderDrawerScreen());
+        Get.offAll(() => hidderDrawerScreen(usertype: "Student"));
+        // Get.to( hidderDrawerScreen());
         isCallingLoginApi.value = false;
       }else{
         isCallingLoginApi.value = false;
@@ -99,7 +101,7 @@ class LoginController extends GetxController{
   void loginAdmin () async{
     isCallingLoginApi.value = true;
     var responsee = await userlogin('Admin');
-    if (responsee.success!) {
+    if (responsee.success == true) {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(responsee.token!);
       print(decodedToken);
       String encodedMap = jsonEncode(decodedToken);
@@ -108,11 +110,12 @@ class LoginController extends GetxController{
       sharepref.setString('AdminDetails',encodedMap );
       sharepref.setString('email',responsee.email!);
       sharepref.setString('id',responsee.id!);
+      sharepref.setBool('file',false);
       sharepref.setString('name',responsee.name!);
       sharepref.setString('avatar',responsee.avatar!);
       sharepref.setString('registrationNumber',responsee.registrationNumber!);
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
-      Get.to( hidderDrawerScreen());
+      Get.offAll(() => hidderDrawerScreen(usertype: "Admin"));
       isCallingLoginApi.value = false;
     }else{
       isCallingLoginApi.value = false;
@@ -121,7 +124,7 @@ class LoginController extends GetxController{
   void loginFaculty () async{
     isCallingLoginApi.value = true;
     var responsee = await userlogin('Faculty');
-    if (responsee.success!) {
+    if (responsee.success == true) {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(responsee.token!);
       print(decodedToken);
       String encodedMap = jsonEncode(decodedToken);
@@ -130,11 +133,16 @@ class LoginController extends GetxController{
       sharepref.setString('FacultyDetails',encodedMap );
       sharepref.setString('email',responsee.email!);
       sharepref.setString('id',responsee.id!);
+      sharepref.setBool('file',false);
       sharepref.setString('name',responsee.name!);
       sharepref.setString('avatar',responsee.avatar!);
       sharepref.setString('registrationNumber',responsee.registrationNumber!);
+      sharepref.setString('department',responsee.department!);
+      // sharepref.setString('joiningYear',responsee.joiningYear!.toString());
+      sharepref.setString('designation',responsee.designation!);
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
-      Get.to( hidderDrawerScreen());
+      print(encodedMap);
+      Get.offAll(() => hidderDrawerScreen(usertype: "Faculty"));
       isCallingLoginApi.value = false;
     }else{
       isCallingLoginApi.value = false;

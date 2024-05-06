@@ -13,6 +13,11 @@ class _drawerScreenState extends State<drawerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("College Management"),),
+      // bottomNavigationBar: BottomNavigationBarItem(
+      //   icon: Icons.add,
+      //   label: "dfdf",
+      //   activeIcon: Icons.account_balance
+      // ),
       drawer: Drawer(
         child: ListView(
           children: [

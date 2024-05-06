@@ -37,14 +37,15 @@ class homePage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: ()async{
-                            var sharepref = await SharedPreferences.getInstance();
-                            sharepref.setBool("LoginS", false);
-                            sharepref.setBool("LoginA", false);
-                            sharepref.setBool("LoginF", false);
-                            sharepref.setString('StudentDetails', '');
-                            sharepref.setString('AdminDetails', '');
-                            sharepref.setString('FacultyDetails', '');
-                            Get.to(SplashScreen());
+                            // var sharepref = await SharedPreferences.getInstance();
+                            // sharepref.setBool("LoginS", false);
+                            // sharepref.setBool("LoginA", false);
+                            // sharepref.setBool("LoginF", false);
+                            // sharepref.setString('StudentDetails', '');
+                            // sharepref.setString('AdminDetails', '');
+                            // sharepref.setString('FacultyDetails', '');
+                            // Get.to(SplashScreen());
+                            Get.snackbar("Please visit our website to create new account", 'www.college.erp.com',isDismissible: true,);
                           },
                           child: Container(
                             height: 60,

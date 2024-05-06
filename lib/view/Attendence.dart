@@ -12,14 +12,23 @@ class AttendancePage extends StatefulWidget {
 }
 
 class _AttendancePageState extends State<AttendancePage> {
-  final attendenceController = Get.put(AttendenceController());
-  // List<dynamic> _users = [{}];
+  AttendenceController attendenceController = Get.find();
+
+  late List<dynamic> abc = [];
+  late var sss = [];
   @override
   void initState () {
     super.initState();
     // attendenceController.getAttendenceList('64f46a15b2d0e12aac57e1ee');
+
+    setState(() {
+      attendenceController.attendencelist.map((element) => {
+        [...abc,element]
+      });
+    });
     print(attendenceController.attendencelist.length);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         child: const Text("Subject",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
                       ),
                       Container(
-                        padding: const EdgeInsets.only(top: 8, left: 5),
+                        padding: const EdgeInsets.only(top: 8, left: 10),
                         height: 50,
                         decoration: BoxDecoration(
                             color: Colors.teal[300],borderRadius:  BorderRadius.circular(0),
@@ -66,7 +75,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         child: const Text('Attended',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
                       ),
                       Container(
-                        padding: const EdgeInsets.only(top: 8, left: 5),
+                        padding: const EdgeInsets.only(top: 8, left: 10),
                         height: 50,
                         decoration: BoxDecoration(
                             color: Colors.teal[400],borderRadius:  BorderRadius.circular(0),

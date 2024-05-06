@@ -9,7 +9,8 @@ class LoginResponse {
   String? department;
   int? year;
   String? batch;
-
+  int? joiningYear;
+  String? designation;
   LoginResponse(
       {this.success,
         this.token,
@@ -20,7 +21,10 @@ class LoginResponse {
         this.registrationNumber,
         this.department,
         this.year,
-        this.batch});
+        this.batch,
+        this.joiningYear,
+        this.designation
+      });
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -33,6 +37,8 @@ class LoginResponse {
     department = json['department'];
     year = json['year'];
     batch = json['batch'];
+    joiningYear = json['joiningYear'];
+    designation = json['designation'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +53,8 @@ class LoginResponse {
     data['department'] = this.department;
     data['year'] = this.year;
     data['batch'] = this.batch;
+    data['joiningYear'] = this.joiningYear;
+    data['designation'] = this.designation;
     return data;
   }
 }
