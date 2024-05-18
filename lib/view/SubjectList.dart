@@ -60,7 +60,7 @@ class _SubjectListState extends State<SubjectList> {
                               color: Colors.teal[200],borderRadius:  BorderRadius.circular(0),
                               border:Border.all(width: 0.5)
                           ),
-                          child: const Text("SubjectCode",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
+                          child: const Text("Subject",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 8, ),
@@ -69,7 +69,7 @@ class _SubjectListState extends State<SubjectList> {
                               color: Colors.teal[300],borderRadius:  BorderRadius.circular(0),
                               border:Border.all(width: 0.5)
                           ),
-                          child: const Text('Subject',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
+                          child: const Text('SubjectCode',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),),
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 8, ),

@@ -19,7 +19,8 @@ class AllControllerBinding implements Bindings {
     // Get.lazyPut<SignupController>(() => SignupController());
     Get.lazyPut<giveAttendenceController>(() => giveAttendenceController());
     Get.lazyPut<ExamFeePayController>(() => ExamFeePayController());
-    // Get.lazyPut<ChatListController>(() => ChatListController());
+    Get.lazyPut<ChatListController>(() => ChatListController());
+    
 
 
   }

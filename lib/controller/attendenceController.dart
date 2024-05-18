@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:collge_erp_app/Service/Network/basic_api_service.dart';
 import 'package:collge_erp_app/Service/Network/network_api_service.dart';
 import 'package:collge_erp_app/const/app_url.dart';
+import 'package:collge_erp_app/controller/ChatListController.dart';
 import 'package:collge_erp_app/model/attendenceMod.dart';
 import 'package:collge_erp_app/model/attendenceModel.dart';
 import 'package:collge_erp_app/model/loginModel.dart';
@@ -81,6 +82,7 @@ class AttendenceController extends GetxController{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    
   }
 }
 

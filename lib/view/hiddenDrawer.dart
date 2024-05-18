@@ -1,4 +1,5 @@
 
+import 'package:collge_erp_app/utils/utils.dart';
 import 'package:collge_erp_app/view/Attendence.dart';
 import 'package:collge_erp_app/view/ChatListPage.dart';
 import 'package:collge_erp_app/view/Faculty/GiveAttendence.dart';
@@ -86,16 +87,17 @@ void initState() {
             baseStyle: TextStyle(color: Colors.white, fontSize: 18),
             selectedStyle: TextStyle(color: Colors.black, fontSize: 18),
         ), AttendancePage()),
-          ScreenHiddenDrawer(ItemHiddenMenu(
-            name: "Chat",
-            baseStyle: TextStyle(color: Colors.white, fontSize: 18),
-            selectedStyle: TextStyle(color: Colors.black, fontSize: 18),
-        ), ChatListPage()),
+         
          ScreenHiddenDrawer(ItemHiddenMenu(
             name: "Fees Payment",
             baseStyle: TextStyle(color: Colors.white, fontSize: 18),
             selectedStyle: TextStyle(color: Colors.black, fontSize: 18),
         ), FeePayment()),
+         ScreenHiddenDrawer(ItemHiddenMenu(
+            name: "Chat",
+            baseStyle: TextStyle(color: Colors.white, fontSize: 18),
+            selectedStyle: TextStyle(color: Colors.black, fontSize: 18),
+        ), ChatListPage()),
       ]);
     });
   // });
@@ -113,29 +115,35 @@ void initState() {
   }
   @override
   Widget build(BuildContext context) {
-    return HiddenDrawerMenu(screens: _pages, backgroundColorMenu: Colors.amber,slidePercent: 50,backgroundColorContent:Colors.red,
-    styleAutoTittleName: TextStyle(color: Colors.black,fontWeight: FontWeight.w500),actionsAppBar: [
-      // Text("$name"),
-       Container(
-         margin: EdgeInsets.only(right: 12),
-         decoration: BoxDecoration(
-           border: Border.all(),
-           borderRadius: BorderRadius.circular(100)
-         ),
-         child:   ClipRRect(
-           borderRadius: BorderRadius.circular(80),
-           child: Image.asset(
-             'assets/images/LOGO.png',
-             height: 40,
-             width: 40,
-             fit: BoxFit.contain,
-
+    return PopScope(
+      canPop: false,
+      onPopInvoked:(didPop) {
+                        onWillPop(context, didPop);
+                      },
+      child: HiddenDrawerMenu(screens: _pages, backgroundColorMenu: Colors.amber,slidePercent: 50,backgroundColorContent:Colors.red,
+      styleAutoTittleName: TextStyle(color: Colors.black,fontWeight: FontWeight.w500),actionsAppBar: [
+        // Text("$name"),
+         Container(
+           margin: EdgeInsets.only(right: 12),
+           decoration: BoxDecoration(
+             border: Border.all(),
+             borderRadius: BorderRadius.circular(100)
            ),
-         ),
-       )
-
-      ],
-    // tittleAppBar: Container(height: 100,width: 100,decoration: BoxDecoration(color: Colors.cyanAccent)),
-      isDraggable: true,);
+           child:   ClipRRect(
+             borderRadius: BorderRadius.circular(80),
+             child: Image.asset(
+               'assets/images/LOGO.png',
+               height: 40,
+               width: 40,
+               fit: BoxFit.contain,
+      
+             ),
+           ),
+         )
+      
+        ],
+      // tittleAppBar: Container(height: 100,width: 100,decoration: BoxDecoration(color: Colors.cyanAccent)),
+        isDraggable: true,),
+    );
   }
 }

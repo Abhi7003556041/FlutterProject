@@ -146,18 +146,7 @@ class _ChatPageState extends State<ChatPage> {
               image: selfImg)
           .toJson()
     });
-    // setState(() {
-    //   _messages.insert(
-    //       0,
-    //       Result.fromJson(
-    //          { "roomId":
-    //           "${data[1]["receiverRegistrationNumber"]}.${data[2]["senderRegistrationNumber"]}",
-    //           "senderName": selfName,
-    //           "senderId": selfId,
-    //           "createdAt": DateTime.now().toString(),
-    //           "message": messageInputController.text,
-    //           "image": selfImg}));
-    // });
+   
     messageInputController.clear();
     print("========Model");
     print(model.toJson());

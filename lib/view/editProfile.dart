@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:collge_erp_app/controller/ProfileUpdateController.dart';
@@ -6,6 +5,7 @@ import 'package:collge_erp_app/view/Splashscreen.dart';
 import 'package:collge_erp_app/widget/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
@@ -19,18 +19,16 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  ProfileUpdateController editProfileController = Get.put(ProfileUpdateController());
+  ProfileUpdateController editProfileController =
+      Get.put(ProfileUpdateController());
   // ProfileUpdateController editProfileController = Get.find();
   var list = [];
-
 
   var details = [];
   @override
   void initState() {
     super.initState();
     getDetails();
-
-
   }
 
   late String name = "";
@@ -42,20 +40,45 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       userImg = sharepref.getString('avatar')!;
       type = sharepref.getBool('file')!;
-      LoginF = sharepref.getBool("LoginF") ?? sharepref.getBool('LoginF') ?? false;
-      if(LoginF){
-        list = ["Registration","Name","FacultyId","Email","department","designation"];
-        details = [sharepref.getString('registrationNumber')!,sharepref.getString('name')!,
-          sharepref.getString('id')!,sharepref.getString('email')!,sharepref.getString('department')!,
+      LoginF =
+          sharepref.getBool("LoginF") ?? sharepref.getBool('LoginF') ?? false;
+      if (LoginF) {
+        list = [
+          "Registration",
+          "Name",
+          "FacultyId",
+          "Email",
+          "department",
+          "designation"
+        ];
+        details = [
+          sharepref.getString('registrationNumber')!,
+          sharepref.getString('name')!,
+          sharepref.getString('id')!,
+          sharepref.getString('email')!,
+          sharepref.getString('department')!,
           sharepref.getString('designation')!
         ];
-      }else{
-        list = ["Registration","Name","StudentId","Email","department","Year","Batch"];
-        details = [sharepref.getString('registrationNumber')!,sharepref.getString('name')!,
-          sharepref.getString('id')!,sharepref.getString('email')!,sharepref.getString('department')!,
-          sharepref.getString('year')!,sharepref.getString('batch')!];
+      } else {
+        list = [
+          "Registration",
+          "Name",
+          "StudentId",
+          "Email",
+          "department",
+          "Year",
+          "Batch"
+        ];
+        details = [
+          sharepref.getString('registrationNumber')!,
+          sharepref.getString('name')!,
+          sharepref.getString('id')!,
+          sharepref.getString('email')!,
+          sharepref.getString('department')!,
+          sharepref.getString('year')!,
+          sharepref.getString('batch')!
+        ];
       }
-
     });
   }
 
@@ -95,10 +118,18 @@ class _EditProfileState extends State<EditProfile> {
                           ClipRRect(
                               borderRadius: BorderRadius.circular(80),
                               child: Obx(
-                                () => editProfileController.compressImagePath.value != ""  || type
+                                () => editProfileController
+                                                .compressImagePath.value !=
+                                            "" ||
+                                        type
                                     ? Image.file(
-                                        File(editProfileController.compressImagePath.value != ""  ? editProfileController
-                                                .selectedImagePath.value : userImg)
+                                        File(editProfileController
+                                                        .compressImagePath
+                                                        .value !=
+                                                    ""
+                                                ? editProfileController
+                                                    .selectedImagePath.value
+                                                : userImg)
                                             .absolute,
                                         height: 120,
                                         width: 120,
@@ -170,19 +201,68 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.only(
-                                          top: 12, left: 10),
-                                      height: 50,
-                                      width: fullWidth(context) * 0.55,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white24,
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                          border: Border.all(width: 0.5)),
-                                      child: Text(details[index].toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500)),
+                                       width: fullWidth(context) * 0.65,
+                                       height: 50,
+                                       padding: EdgeInsets.only(left: list[index] == "Email" || list[index] == "Registration"  ?  0 :0),
+                                      child: TextField(
+                                        controller: editProfileController.textcontrollerr[index],
+                                        enabled: list[index] == "Email" || list[index] == "Registration"  ? false : true,
+                                        style: TextStyle(color: Colors.white),
+                                        decoration:  InputDecoration(
+                                          hintText: 'Enter Registration number',
+                                          hintStyle:
+                                              TextStyle(color: Colors.white),
+                                          // labelText: 'Registration number',
+                                          focusColor: Colors.white,
+                                          labelStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500),
+                                          // suffixStyle: TextStyle(color: Colors.white),
+                                          // focusedBorder: OutlineInputBorder(
+                                          //     borderRadius:
+                                          //         BorderRadius.circular(10),
+                                          //     borderSide: const BorderSide(
+                                          //         color: Colors.white)),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                              borderSide: BorderSide(
+                                                  width: .65, color: Colors.black)),
+                                                  disabledBorder:  OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                              borderSide: BorderSide(
+                                                  width: .65, color: Colors.black)),
+                                          // suffixIcon: IconButton(
+                                          //   icon: const Icon(
+                                          //     Icons.email,
+                                          //     color: Colors.black,
+                                          //   ),
+                                          //   onPressed: () {},
+                                          // ),
+                                          // prefixIcon: IconButton(
+                                          //    icon: Icon(Icons.message,color: Colors.lightGreen,),
+                                          //    onPressed: (){
+                                          //
+                                          //    },
+                                          //  )
+                                        ),
+                                      ),
                                     ),
+                                    // Container(
+                                    //   padding: const EdgeInsets.only(
+                                    //       top: 12, left: 10),
+                                    //   height: 50,
+                                    //   width: fullWidth(context) * 0.55,
+                                    //   decoration: BoxDecoration(
+                                    //       color: Colors.white24,
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(0),
+                                    //       border: Border.all(width: 0.5)),
+                                    //   child: Text(details[index].toString(),
+                                    //       style: TextStyle(
+                                    //           fontWeight: FontWeight.w500)),
+                                    // ),
                                   ]);
                             },
                             itemCount: list.length),
@@ -197,29 +277,34 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       Obx(() {
                         return editProfileController.showLoader.value
-                            ? const CircularProgressIndicator()
-                            :
-                        GestureDetector(
-                          onTap: () async {
-                            if (editProfileController.selectedImagePath.value != "") {
-                              print("sdsd");
-                              editProfileController.updateProfile();
-                            } else {
-                              Get.snackbar("Nothing has changed", "warning");
-                            }
-                          },
-                          child: Container(
-                            height: 60,
-                            width: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
+                            ? const CircularProgressIndicator(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Update',
-                                style: TextStyle(color: Colors.black)),
-                          ),
-                        );
-                      })]),
+                              )
+                            : GestureDetector(
+                                onTap: () async {
+                                  if (editProfileController
+                                          .selectedImagePath.value !=
+                                      "") {
+                                    print("sdsd");
+                                    editProfileController.updateProfile();
+                                  } else {
+                                    Get.snackbar(
+                                        "Nothing has changed", "warning");
+                                  }
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 200,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Text('Update',
+                                      style: TextStyle(color: Colors.black)),
+                                ),
+                              );
+                      })
+                    ]),
               )),
             )));
   }

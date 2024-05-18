@@ -22,18 +22,58 @@ class ProfileUpdateController extends GetxController{
   var compressImageSize = ''.obs;
   var selectedImagePath = ''.obs;
   var selectedImageSize = ''.obs;
+   List<TextEditingController> textcontrollerr = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+  List<String> details = [];
+  // List.generate(2, (index) => TextEditingController());
+  TextEditingController nameController = TextEditingController();
   final form = FormData({});
   String email = "";
+  late bool LoginF = false;
   late File imageFile;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getDetails();
+  
   }
   void getDetails () async{
     var sharepref =await  SharedPreferences.getInstance();
     email=sharepref.getString('email')!;
+      LoginF =
+          sharepref.getBool("LoginF") ?? sharepref.getBool('LoginF') ?? false;
+      if (LoginF) {
+       
+        details = [
+          sharepref.getString('registrationNumber')!,
+          sharepref.getString('name')!,
+          sharepref.getString('id')!,
+          sharepref.getString('email')!,
+          sharepref.getString('department')!,
+          sharepref.getString('designation')!
+        ];
+      } else {
+       
+        details = [
+          sharepref.getString('registrationNumber')!,
+          sharepref.getString('name')!,
+          sharepref.getString('id')!,
+          sharepref.getString('email')!,
+          sharepref.getString('department')!,
+          sharepref.getString('year')!,
+          sharepref.getString('batch')!
+        ];
+      }
+    for (int i = 0; i < textcontrollerr.length; i++) {
+     textcontrollerr[i].text = details[i];
+    }
     // getAttendence(sharepref.getString('id')!);
 
   }

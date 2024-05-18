@@ -15,8 +15,8 @@ class ChatListPage extends StatefulWidget {
 
 class _ChatListPageState extends State<ChatListPage> {
   // TextEditingController searchInputController = TextEditingController();
-  ChatListController chatListController = Get.put(ChatListController());
-  String selected = 'New Chat' ;
+  ChatListController chatListController = Get.put(ChatListController(),permanent: false);
+  String selected = 'New_Chat' ;
 
   @override
   void initState() {
@@ -26,6 +26,12 @@ class _ChatListPageState extends State<ChatListPage> {
       
     // chatListController.chatlist.toSet().toList();
     // });
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+     Get.delete<ChatListController>();
   }
   @override
   Widget build(BuildContext context) {
@@ -110,7 +116,7 @@ class _ChatListPageState extends State<ChatListPage> {
                   GestureDetector(
                       onTap :(){
                         setState(() {
-                          selected = 'New Chat';
+                          selected = 'New_Chat';
                         });
                       },
                       child: Container(
@@ -119,8 +125,8 @@ class _ChatListPageState extends State<ChatListPage> {
                         alignment: Alignment.center,
                         // padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color:selected == 'New Chat' ? Colors.deepOrange : Colors.white,
-                          gradient:selected != 'New Chat' ? null : const LinearGradient(
+                          color:selected == 'New_Chat' ? Colors.deepOrange : Colors.white,
+                          gradient:selected != 'New_Chat' ? null : const LinearGradient(
                             colors: [Colors.black54,Colors.black,Colors.black,Colors.black,Colors.black,
                               Colors.black,Colors.black54],
                             begin: Alignment.topCenter,
@@ -130,8 +136,8 @@ class _ChatListPageState extends State<ChatListPage> {
                           borderRadius:const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft:Radius.circular(10) ),
 
                         ),
-                        child: selected == 'New Chat' ?   const Text('New Chat', style: TextStyle(color: Colors.white ,fontSize: 19)) :
-                        const Text('New Chat', style: TextStyle(color: Colors.black ,fontSize: 19))
+                        child: selected == 'New_Chat' ?   const Text('New_Chat', style: TextStyle(color: Colors.white ,fontSize: 19)) :
+                        const Text('New_Chat', style: TextStyle(color: Colors.black ,fontSize: 19))
                         ,
 
                       )
@@ -142,7 +148,7 @@ class _ChatListPageState extends State<ChatListPage> {
                   GestureDetector(
                       onTap :(){
                         setState(() {
-                          selected = 'Previous Chat';
+                          selected = 'Previous_Chat';
                         });
                       },
                       child:  Container(
@@ -151,8 +157,8 @@ class _ChatListPageState extends State<ChatListPage> {
                         alignment: Alignment.center,
 
                         decoration: BoxDecoration(
-                            color:selected == 'Previous Chat' ? Colors.deepOrange : Colors.white,
-                          gradient:selected != 'Previous Chat' ? null : const LinearGradient(
+                            color:selected == 'Previous_Chat' ? Colors.deepOrange : Colors.white,
+                          gradient:selected != 'Previous_Chat' ? null : const LinearGradient(
                             colors: [Colors.black54,Colors.black,Colors.black,Colors.black,Colors.black,
                               Colors.black,Colors.black54],
                             begin: Alignment.topCenter,
@@ -161,17 +167,17 @@ class _ChatListPageState extends State<ChatListPage> {
                             borderRadius:const BorderRadius.only(topRight: Radius.circular(10),bottomRight:Radius.circular(10) ),
 
                         ),
-                        child:  selected == 'Previous Chat' ?   const Text('Previous Chat', style: TextStyle(color: Colors.white ,fontSize: 19)) :
-                        const Text('Previous Chat', style: TextStyle(color: Colors.black ,fontSize: 19)),
+                        child:  selected == 'Previous_Chat' ?   const Text('Previous_Chat', style: TextStyle(color: Colors.white ,fontSize: 19)) :
+                        const Text('Previous_Chat', style: TextStyle(color: Colors.black ,fontSize: 19)),
 
                       )
                   )
                 ],
             ),
             SizedBox(height: 5,),
-               Obx(() =>  Expanded(
-                  child: ListView.builder(
-                      itemCount: selected == 'New Chat' ? chatListController.chatlistNew.length : chatListController.chatlist.length,
+                 Expanded(
+                  child: Obx(() => ListView.builder(
+                      itemCount: selected == 'New_Chat' ? chatListController.chatlistNew.length : chatListController.chatlist.length,
                       itemBuilder: (context, index) {
                         return Card(
                           color: Colors.white,
@@ -183,24 +189,24 @@ class _ChatListPageState extends State<ChatListPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5))),
-                            title: Text(selected == 'New Chat' ? chatListController
-                                .chatlistNew[index].receiverName.toString() : chatListController
-                                .chatlistNew[index].receiverName.toString()),
-                            subtitle: Text(selected == 'New Chat' ? chatListController
+                            title: Text(selected == 'New_Chat' ? chatListController
+                                .chatlistNew[index].senderName.toString() : chatListController
+                                .chatlist[index].receiverName.toString()),
+                            subtitle: Text(selected == 'New_Chat' ? chatListController
                                 .chatlistNew[index].receiverRegistrationNumber.toString() : chatListController
-                                .chatlistNew[index].receiverRegistrationNumber.toString()),
+                                .chatlist[index].receiverRegistrationNumber.toString()),
                             tileColor: Colors.white,
                             leading: Icon(Icons.person),
                             onTap: () {
                               Get.to(ChatPage(),
                                   arguments: [
                                     {
-                                      "receiverName":selected == 'New Chat' ? chatListController.chatlistNew[index].receiverName : chatListController.chatlist[index].receiverName},
+                                      "receiverName":selected == 'New_Chat' ? chatListController.chatlistNew[index].senderName : chatListController.chatlist[index].senderName},
                                       {
-                                      "receiverRegistrationNumber":selected == 'New Chat' ? chatListController.chatlistNew[index].receiverRegistrationNumber : chatListController.chatlist[index].receiverRegistrationNumber
+                                      "receiverRegistrationNumber":selected == 'New_Chat' ? chatListController.chatlistNew[index].receiverRegistrationNumber : chatListController.chatlist[index].receiverRegistrationNumber
                                       },
                                       {
-                                      "senderRegistrationNumber":selected == 'New Chat' ? chatListController.chatlistNew[index].senderRegistrationNumber : chatListController.chatlist[index].senderRegistrationNumber
+                                      "senderRegistrationNumber":selected == 'New_Chat' ? chatListController.chatlistNew[index].senderRegistrationNumber : chatListController.chatlist[index].senderRegistrationNumber
                                       }
                                   ],
                                   transition: Transition.rightToLeft);

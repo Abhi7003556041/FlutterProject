@@ -21,14 +21,21 @@ class ChatListController extends GetxController {
   TextEditingController searchInputController = TextEditingController();
 
   @override
-  void onInit() {
+  void onInit() async{
     // TODO: implement onInit
     super.onInit();
-    getDetails();
+    var sharepref =await SharedPreferences.getInstance();
+    getChatList(sharepref.getString('name')!);
+    // ever(isCallingApi, (_) =>  getChatList(sharepref.getString('name')!));
+  }
+    @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+     Get.delete<ChatListController>();
   }
  void getDetails () async{
-    var sharepref =await  SharedPreferences.getInstance();
-    getChatList(sharepref.getString('name')!);
+   
 
   }
 
@@ -37,13 +44,13 @@ class ChatListController extends GetxController {
     final result = await http.get(
         Uri.parse(
             "http://localhost:5000/api/student/chat/previousChats/$val"),
-    ).timeout(const Duration(seconds: 30));
+    );
 
     print("GetChatList details");
     print(result.body);
     print(result.statusCode);
     if(result.statusCode == 200){
-      Get.snackbar('GetChatList', 'Success' );
+     
       isCallingApi.value = false;
       print("GetChatList skjlsdhkjsdgk");
       // attendencelist.ad
@@ -57,10 +64,10 @@ class ChatListController extends GetxController {
     // CircularProgressIndicator()
     final result = await http.get(
         Uri.parse(
-            "http://localhost:5000/api/student/chat/newerChats/$val"),
-    ).timeout(const Duration(seconds: 30));
+            "http://localhost:5000/api/student/chat/newerChats/${val}"),
+    );
 
-    print("GetChatList details");
+    print("GetChatList details>>>>>>>>>>>>>>>>>>>>");
     print(result.body);
     print(result.statusCode);
     if(result.statusCode == 200){
@@ -78,29 +85,29 @@ class ChatListController extends GetxController {
     isCallingApi.value = true;
     print('namamma$val');
     var responsee = await getChatListApi(val);
-    var responsee2 = await getNewChatListApi(val);
+    
 
     print("Attendence skjlsdhkjsdgk");
-    print(responsee2);
+    print(responsee);
     if (responsee.status!) {
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
       chatlist.addAll(responsee.result as Iterable<Result>);
-     
-      chatlist.toSet().toList();
-      isCallingApi.value = false;
-    } else {
-      isCallingApi.value = false;
-    }
-    
-    if (responsee2.status!) {
+      var responsee2 = await getNewChatListApi(val);
+    if (responsee2.result?.length != 0) {
       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const hidderDrawerScreen()));
       chatlistNew.addAll(responsee2.result as Iterable<Result>);
-     
-      chatlistNew.toSet().toList();
+      Get.snackbar('GetChatList', 'Success' );
+      // chatlistNew.toSet().toList();
       isCallingApi.value = false;
     } else {
       isCallingApi.value = false;
     }
+      // chatlist.toSet().toList();
+      isCallingApi.value = false;
+    } else {
+      isCallingApi.value = false;
+    }
+   
   }
 
      Future<studentByNameModel> searchStudentApi() async{
@@ -160,9 +167,5 @@ void getStudentByNameList () async {
   }
 
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+
 }

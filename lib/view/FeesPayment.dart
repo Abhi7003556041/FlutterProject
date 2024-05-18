@@ -1,4 +1,5 @@
 import 'package:collge_erp_app/controller/ExamFeePayController.dart';
+import 'package:collge_erp_app/view/hiddenDrawer.dart';
 import 'package:collge_erp_app/widget/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +37,24 @@ class _FeePaymentState extends State<FeePayment> {
     });
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async{
     // Do something when payment succeeds
     // print('sucess response ${response.data.toString()}');
+    //  var sharepref = await SharedPreferences.getInstance();
+    // var isloggedin = sharepref.getBool('LoginS');
+    // var isloggedinAdmin = sharepref.getBool('LoginA');
+    // var isloggedinFaculty = sharepref.getBool('LoginF');
+    Get.snackbar("Success", "Payment Successfull"); 
+    //  if(isloggedin! || isloggedinAdmin! || isloggedinFaculty!){
+    //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> 
+    //        hidderDrawerScreen(usertype:  isloggedin ? "Student" : isloggedinAdmin! ? "Admin" : "Faculty") ));
+    //     }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
+
+    Get.snackbar("Error", "Payment Failed");
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {

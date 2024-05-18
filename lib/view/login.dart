@@ -249,12 +249,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       // Text(widget.title),
                       TextField(
                         controller: loginController.registrationController,
+                        style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           hintText: 'Enter Registration number',
-                          // hintStyle: TextStyle(color: Colors.black),
+                          hintStyle: TextStyle(color: Colors.white),
                           labelText: 'Registration number',
                           focusColor: Colors.white,
                           labelStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
+                          // suffixStyle: TextStyle(color: Colors.white),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(color: Colors.white)),
@@ -282,12 +284,13 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                       TextField(
                         controller: loginController.passwordController,
+                        style: TextStyle(color: Colors.white),
                         obscureText: secure,
                         decoration: InputDecoration(
                           hintText: 'Enter Password',
                           labelText: 'Password',
                           labelStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
-                          // hintStyle: TextStyle(color: Colors.black),
+                          hintStyle: TextStyle(color: Colors.white),
                           focusColor: Colors.white,
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
